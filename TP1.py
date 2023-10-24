@@ -2,7 +2,7 @@
 #cifrado, y devuelva el mensaje cifrado, mediante el cifrado césar. Probarla utilizando doctest,
 #con al menos 10 casos diferentes.
 
-#***************************************************************
+#*************************************************************
 
 def crearRelacion():
     caracter_a_pos = {}
