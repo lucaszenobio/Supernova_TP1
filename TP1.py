@@ -38,6 +38,8 @@ caracter_a_pos = relacion[0]
 pos_a_caracter = relacion[1]
 del relacion
 
+#***************************************************************
+
 def desplazar(caracter, clave):
 
     # Desplaza un solo caracter hacia la derecha 'clave' veces, usando
@@ -121,6 +123,94 @@ def cifrar_c(cadena, clave):
 def descifrar_c(codigo, clave):
     return cifrar_c(codigo, -clave)
     
+#***************************************************************
+    
+def asignar(caracter):
+
+    # Asigna a cada caracter su opuesto correspondiente, haciéndolo
+    # mayúscula si es minúscula y viceversa
+
+    # dist_ini : Distancia del caracter a la posición 0 dentro de su grupo
+    # pos_fin  : La mayor posición dentro del grupo. Por ejemplo, dentro de los
+    #            dígitos es la posición 9.
+
+    offset    = 0
+    dist_ini  = 0
+    pos_fin   = 0
+    alnum = True
+    
+    if(caracter.islower()):
+        caracter = caracter.upper()
+        offset   = 27
+        pos_fin  = 26
+    elif(caracter.isupper()):
+        caracter = caracter.lower()
+        offset   = 0
+        pos_fin  = 26
+    elif(caracter.isdigit()):
+        offset = 54
+        pos_fin = 9
+    else:
+        alnum = False
+        
+    if(alnum):
+    
+        dist_ini = caracter_a_pos[caracter] - offset
+        caracter = pos_a_caracter[pos_fin - dist_ini + offset] 
+            
+    return caracter
+    
+def cifrar_atbash(cadena):
+
+    """
+    
+    >>> cifrar_atbash("A")
+    'z'
+    
+    >>> cifrar_atbash ("z")
+    'A'
+    
+    >>> cifrar_atbash(cifrar_atbash("QUEDA IGUAL"))
+    'QUEDA IGUAL'
+    
+    >>> cifrar_atbash("0000-0000 %&10?")
+    '9999-9999 %&89?'
+    
+    >>> cifrar_atbash(cifrar_atbash("PERRO")) == descifrar_atbash(cifrar_atbash("PERRO")) 
+    True
+    
+    >>> cifrar_atbash("$$$$$===?")
+    '$$$$$===?'
+    
+    >>> cifrar_atbash("abcdefghijklmnñopqrstuvwxyz")
+    'ZYXWVUTSRQPOÑNMLKJIHGFEDCBA'
+    
+    >>> cifrar_atbash("0")
+    '9'
+    
+    >>> cifrar_atbash("a")
+    'Z'
+    
+    >>> cifrar_atbash("ZYXWVUTSRQPOÑNMLKJIHGFEDCBA")
+    'abcdefghijklmnñopqrstuvwxyz'
+    
+    
+    """
+
+    codigo = ""
+    
+    for c in cadena:
+        codigo += asignar(c)
+        
+    return codigo
+    
+# Para descifrar un código atbash basta aplicar de nuevo
+# el algoritmo de cifrado.    
+    
+def descifrar_atbash(cadena):
+    return cifrar_atbash(cadena)
+    
+#***************************************************************
     
 if __name__ == "__main__":
     import doctest  
