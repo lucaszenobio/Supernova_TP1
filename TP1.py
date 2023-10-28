@@ -212,9 +212,9 @@ def descifrar_atbash(cadena):
     
 #***************************************************************
     
-#if __name__ == "__main__":
-#   import doctest  
-#   doctest.testmod()
+if __name__ == "__main__":
+    import doctest  
+    doctest.testmod()
 
 ########################################################################################
 #--------------------------------INTERFAZ GRAFICA--------------------------------------#
@@ -286,7 +286,7 @@ def click_continuar():
         elif boton == "d-atbash":
             texto_cifrado = descifrar_atbash(texto_obtenido)
             
-        entrada_texto.delete("1.0", "END")
+        entrada_texto.delete("1.0", "end")
         entrada_texto.insert("1.0",texto_cifrado)
 
 
